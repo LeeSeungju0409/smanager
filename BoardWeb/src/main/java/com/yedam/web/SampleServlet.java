@@ -16,7 +16,7 @@ import com.yedam.common.DataSource;
 import com.yedam.mapper.StudentMapper;
 import com.yedam.vo.StudentVO;
 
-@WebServlet("/SampleServlet")
+//@WebServlet("/SampleServlet")
 public class SampleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
