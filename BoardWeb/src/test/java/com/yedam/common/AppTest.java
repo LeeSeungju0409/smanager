@@ -7,7 +7,12 @@ import com.yedam.service.BoardServiceImpl;
 public class AppTest {
 	public static void main(String[] args) {
 		BoardService svc = new BoardServiceImpl();
-		svc.boardList().forEach(System.out::println);
+		SearchVO search = new SearchVO();
+		search.setSearchCondition("T");
+		search.setKeyword("java");
+		search.setPage(1);
+		
+		svc.boardList(search).forEach(System.out::println);
 		System.out.println("- End -");
 //		SqlSession sqlSession = //
 //				DataSource.getInstance().openSession(true); //자동으로 커밋하려고 true 넣음.
