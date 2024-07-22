@@ -3,6 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.BoardMapper">
+
+<sql id="selectCondition">
+			where
+			<choose>
+				<when test="searchCondition == 'T'.toString() ">
+				title like '%'|| #{keyword} ||'%'
+				</when>
+				<when test="searchCondition == 'W'.toString() ">
+				writer like '%'|| #{keyword} ||'%'
+				</when>
+				<when test="searchCondition == 'TW'.toString() ">
+				title like '%'|| #{keyword} ||'%' or writer like '%'|| #{keyword} ||'%'
+				</when>
+				<otherwise>1 = 1</otherwise>
+			</choose>
+	
+</sql>
 	<select id="selectList" resultType="com.yedam.vo.BoardVO">
 		select board_no
 		,title
@@ -19,20 +36,8 @@
 		from (select rownum rn, a.*
 		from(SELECT *
 			FROM tbl_board
-			where
-			<choose>
-				<when test="searchCondition == 'T'.toString() ">
-				title like '%'|| #{keyword} ||'%'
-				</when>
-				<when test="searchCondition == 'W'.toString() ">
-				writer like '%'|| #{keyword} ||'%'
-				</when>
-				<when test="searchCondition == 'TW'.toString() ">
-				title like '%'|| #{keyword} ||'%' or writer like '%'|| #{keyword} ||'%'
-				</when>
-				<otherwise>1 = 1</otherwise>
-			</choose>
-			order by board_no ) a ) b
+			<include refid="selectCondition"></include>
+		order by board_no desc ) a ) b
 		where b.rn > (#{page} - 1) * 5
 		<![CDATA[
 		and b.rn <= (#{page} * 5)
@@ -43,26 +48,14 @@
 	<select id="selectTotalCount" parameterType="com.yedam.common.SearchVO">
 		select count(1)
 		from tbl_board
-		where
-			<choose>
-				<when test="searchCondition == 'T'.toString() ">
-				title like '%'|| #{keyword} ||'%'
-				</when>
-				<when test="searchCondition == 'W'.toString() ">
-				writer like '%'|| #{keyword} ||'%'
-				</when>
-				<when test="searchCondition == 'TW'.toString() ">
-				title like '%'|| #{keyword} ||'%' or writer like '%'|| #{keyword} ||'%'
-				</when>
-				<otherwise>1 = 1</otherwise>
-			</choose>
+			<include refid="selectCondition"></include>
 	</select>
 	
 	<insert id="insertBoard" parameterType="com.yedam.vo.BoardVO">
 		insert into
-		tbl_board(board_no, title, writer, content)
+		tbl_board(board_no, title, writer, content, image)
 		values(board_seq.nextval,
-		#{title}, #{writer}, #{content})
+		#{title}, #{writer}, #{content}, #{image})
 	</insert>
 
 	<update id="updateBoard" parameterType="com.yedam.vo.BoardVO">
@@ -87,16 +80,15 @@
 
 
 
-	<select id="selectBoard" parameterType="int"
-		resultType="com.yedam.vo.BoardVO">
+	<select id="selectBoard" parameterType="int" resultType="com.yedam.vo.BoardVO">
 		select board_no
-		,title
-		,content
-		,writer
-		,view_cnt
-		,write_date
+			,title
+			,content
+			,writer
+			,view_cnt
+			,write_date
+			,image
 		from tbl_board
-		where board_no =
-		#{boardNo}
+		where board_no = #{boardNo}
 	</select>
 </mapper>

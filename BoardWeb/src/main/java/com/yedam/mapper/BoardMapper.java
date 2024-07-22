@@ -17,5 +17,5 @@ public interface BoardMapper {
 		int insertBoard(BoardVO board);
 		int updateBoard(BoardVO board);
 		int deleteBoard(int BoardNo);
-		BoardVO  selectBoard(int boardNo);
+		BoardVO selectBoard(int boardNo);
 }

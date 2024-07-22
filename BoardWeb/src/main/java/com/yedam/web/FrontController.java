@@ -11,11 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.control.ActionControl;
 import com.yedam.control.AddBoardControl;
 import com.yedam.control.Board;
 import com.yedam.control.BoardForm;
 import com.yedam.control.BoardListControl;
 import com.yedam.control.DeleteBoard;
+import com.yedam.control.LoginControl;
+import com.yedam.control.LoginForm;
+import com.yedam.control.LogoutControl;
 import com.yedam.control.StudentListControl;
 import com.yedam.control.UpdateBoard;
 import com.yedam.control.modifyBoard;
@@ -63,6 +67,14 @@ public class FrontController extends HttpServlet{
 		 // 수정
 		 map.put("/modifyBoard.do", new modifyBoard());
 		 map.put("/updateBoard.do", new UpdateBoard());
+		 // 태그연습
+		 map.put("/action.do", new ActionControl());
+		 
+		 // 로그인
+		 map.put("/loginForm.do", new LoginForm()); // 로그인화면 open
+		 map.put("/login.do", new LoginControl());
+		 map.put("/logout.do", new LogoutControl());
+		 
 	    }
 	 @Override
 	    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

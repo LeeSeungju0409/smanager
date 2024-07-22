@@ -23,11 +23,15 @@ public class removeBoard implements Control {
 //		
 //		req.setAttribute("board", board);
 		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
+
 		
 		BoardService svc = new BoardServiceImpl();
 		BoardVO board = svc.getBoard(Integer.parseInt(bno));
 		
 		req.setAttribute("board", board);
+		req.setAttribute("page", page);
+
 		
 		req.getRequestDispatcher("WEB-INF/jsp/removeBoard.jsp")//
 				.forward(req, resp); //페이지 재지정.
