@@ -40,7 +40,7 @@ public class BoardListControl implements Control {
 		req.setAttribute("paging", pageDTO); //boardList.jsp에서 여기있는 paging값을 받음.
 		req.setAttribute("searchCondition", sc);
 		req.setAttribute("keyword", kw);
-		req.getRequestDispatcher("WEB-INF/jsp/boardList.jsp").forward(req, resp);
+		req.getRequestDispatcher("board/boardList.tiles").forward(req, resp);
 		
 	}
 	

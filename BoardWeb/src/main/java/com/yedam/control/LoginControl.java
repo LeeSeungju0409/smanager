@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.yedam.common.Control;
 import com.yedam.service.MemberService;
 import com.yedam.service.MemberServiceImpl;
+import com.yedam.vo.MemberVO;
 
 public class LoginControl implements Control {
 
@@ -20,17 +21,27 @@ public class LoginControl implements Control {
 		String pw= req.getParameter("pw");
 		
 		MemberService svc = new MemberServiceImpl();
-		if (svc.loginCheck(id, pw)) {
-			// 세션 객체(atribute)
-			HttpSession session = req.getSession();
-			session.setAttribute("logid", id);
-			session.setMaxInactiveInterval(30 * 60);
-			resp.sendRedirect("boardList.do");
-		} else {
+		MemberVO mem = svc.loginCheck(id,  pw);
+		
+		if(mem == null) {
 			// msg를 "아이디와 비번을 확인하세요!";
 			req.setAttribute("msg", "아이디와 비번을 확인하세요!");
 			req.getRequestDispatcher("WEB-INF/jsp/loginForm.jsp").forward(req, resp);
-
+			
+			return;
+		}
+		
+		// 세션 객체(atribute)
+		HttpSession session = req.getSession();
+		session.setAttribute("logid", id);
+		session.setAttribute("res", mem.getResponsibility());
+		session.setMaxInactiveInterval(30 * 60);
+		if(mem.getResponsibility().equals("User")) {
+		resp.sendRedirect("boardList.do");
+		} else if(mem.getResponsibility().equals("Admin")) {
+			resp.sendRedirect("memberList.do");	
+		} else {
+			System.out.println("권한을 지정하세요.");
 		}
 	}
 

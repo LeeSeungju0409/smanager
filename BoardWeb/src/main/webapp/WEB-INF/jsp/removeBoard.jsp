@@ -1,7 +1,6 @@
 <%@page import="com.yedam.vo.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="../includes/header.jsp"></jsp:include>
 <h3>삭제화면(removeBoard.jsp)</h3>
 <%
 	BoardVO board = (BoardVO) request.getAttribute("board");
@@ -38,4 +37,3 @@
 </table>
 </form>
 
-<%@ include file="../includes/footer.jsp"%>

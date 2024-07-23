@@ -20,6 +20,7 @@ import com.yedam.control.DeleteBoard;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginForm;
 import com.yedam.control.LogoutControl;
+import com.yedam.control.MemberListControl;
 import com.yedam.control.StudentListControl;
 import com.yedam.control.UpdateBoard;
 import com.yedam.control.modifyBoard;
@@ -58,8 +59,6 @@ public class FrontController extends HttpServlet{
 		 // 글등록 구현: 등록화면(BoardForm.do) + DB등록(addForm.do) -> 글목록페이지 이동.
 		 map.put("/boardForm.do", new BoardForm());
 		 map.put("/addBoard.do", new AddBoardControl());
-		 // 학생목록
-		 map.put("/stdList.do", new StudentListControl());
 		 map.put("/board.do", new Board());
 		 // 삭제
 		 map.put("/removeBoard.do", new removeBoard());
@@ -67,8 +66,13 @@ public class FrontController extends HttpServlet{
 		 // 수정
 		 map.put("/modifyBoard.do", new modifyBoard());
 		 map.put("/updateBoard.do", new UpdateBoard());
+		 // 학생목록
+		 map.put("/stdList.do", new StudentListControl());
 		 // 태그연습
 		 map.put("/action.do", new ActionControl());
+		 
+		 // 관리자가 사용하는 기능들.. ex)회원목록.
+		 map.put("/memberList.do", new MemberListControl());
 		 
 		 // 로그인
 		 map.put("/loginForm.do", new LoginForm()); // 로그인화면 open
