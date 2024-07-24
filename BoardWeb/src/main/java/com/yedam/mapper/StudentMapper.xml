@@ -8,9 +8,9 @@
 	<select id="memberList" resultType="com.yedam.vo.MemberVO">
 		select *
 		from  tbl_member
-		where responsibility = 'User'
+		where responsibility = #{res}
+		order by ${order}
 	</select>
-	
 
 	<select id="selectMember" resultType="com.yedam.vo.MemberVO">
 		select *
