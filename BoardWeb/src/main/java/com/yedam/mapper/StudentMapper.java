@@ -11,8 +11,10 @@ public interface StudentMapper {
 	List<StudentVO> studentList();
 	StudentVO selectOne(String sno);
 	int insertStudent(StudentVO svo);
+	int deleteStudent(String stdNo);
+
 	
 	// 로그인체크.
 	MemberVO selectMember(@Param("id") String id, @Param("pw") String pw);
-	List<MemberVO> memberList(@Param("res") String res, @Param("order_by") String order_by);
+	List<MemberVO> memberList(@Param("res") String res, @Param("order") String order);
 }
