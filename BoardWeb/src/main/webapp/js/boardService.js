@@ -4,7 +4,7 @@
  */
 const svc = {
 	// 목록.
-	replyList(param = {bno, page}, loadCallback) {
+	replyList(param = { bno, page }, loadCallback) {
 		const xhtp = new XMLHttpRequest();
 		xhtp.open('get', 'replyList.do?bno=' + param.bno + '&page=' + param.page);
 		xhtp.send();
@@ -20,11 +20,19 @@ const svc = {
 	},
 
 	// 삭제.
-	removeReply(rno = 1,loadCallback) {
+	removeReply(rno = 1, loadCallback) {
 		const xhtp = new XMLHttpRequest();
-		xhtp.open('get', 'removeReply.do?rno=' + rno );// + '&content=' + param.content + '&replyer=' + param.replyer); RemoveReplyControll에서 파라미터로 값을 하나밖에 안해놨었기때문에 하나만 주는거임.
+		xhtp.open('get', 'removeReply.do?rno=' + rno);// + '&content=' + param.content + '&replyer=' + param.replyer); RemoveReplyControll에서 파라미터로 값을 하나밖에 안해놨었기때문에 하나만 주는거임.
 		xhtp.send();
 		xhtp.onload = loadCallback;
 
+	},
+
+	// 댓글 갯수
+	pagingCount(bno = 1, loadCallback) {
+		const xhtp = new XMLHttpRequest();
+		xhtp.open('get', 'pagingCount.do?bno=' + bno);// + '&content=' + param.content + '&replyer=' + param.replyer); RemoveReplyControll에서 파라미터로 값을 하나밖에 안해놨었기때문에 하나만 주는거임.
+		xhtp.send();
+		xhtp.onload = loadCallback;
 	}
 }// end of svc.
